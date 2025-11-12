@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Checkpoint
   - Destroyer
+  - Solid
   layers:
   - Default
   - TransparentFX

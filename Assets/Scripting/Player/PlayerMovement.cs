@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpStrength = 10f;
     private Collider2D plCollider;
     public float stamina = 200f;
-    public Transform groundCheck;
+    public Collider2D groundCheck;
     public float groundRadius = 0.2f;
     public LayerMask groundLayer;
     [SerializeField] private bool doubleJumped;
@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     {
         staminaBar.UpdateBar(stamina, 100f);
         // Cek tanah
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
+        
 
 
         // Lompat hanya kalau menyentuh tanah
@@ -222,15 +222,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //Function for Gizmo
-    void OnDrawGizmosSelected()
-    {
-        if (groundCheck != null)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
-        }
-    }
+    // //Function for Gizmo
+    // void OnDrawGizmosSelected()
+    // {
+    //     if (groundCheck != null)
+    //     {
+    //         Gizmos.color = Color.yellow;
+    //         Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+    //     }
+    // }
 
     //Coroutine Group
 
