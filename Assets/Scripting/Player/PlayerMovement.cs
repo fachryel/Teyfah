@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerHealth healthScript;
     public float health = 100f;
     private float facingDirection = 1;
+    public bool canDoubleJump = false;
     public float staminaRate = 3f;
     public Rigidbody2D rb;
     public float speed = 20f;
@@ -47,13 +48,14 @@ public class PlayerMovement : MonoBehaviour
         // Lompat hanya kalau menyentuh tanah
         if (Input.GetButtonDown("Jump") && isGrounded || Input.GetButtonDown("Jump") && justJumped)
         {
-            rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
+            
             if (isGrounded)
             {
                 justJumped = true;
                 doubleJumped = false;
+                rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
             }
-            else if (justJumped == true && doubleJumped == false)
+            else if (justJumped == true && doubleJumped == false && canDoubleJump)
             {
                 if (stamina > 15f)
                 {
@@ -61,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
                     Debug.Log("DoubleJumped");
                     justJumped = false;
                     doubleJumped = true;
+                    rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
                 }
             }
 
