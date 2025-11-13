@@ -28,12 +28,15 @@ public class PlayerMovement : MonoBehaviour
     public ForceMode2D forceMode2D = ForceMode2D.Force;
     [SerializeField] private bool flashHolding;
     [SerializeField] private float flashAmount;
-
+    public AudioSource jumpSound;
+    public AudioSource walkSound;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         plCollider = GetComponent<Collider2D>();
         healthScript = GetComponent<PlayerHealth>();
+
+
     }
 
 
@@ -46,13 +49,14 @@ public class PlayerMovement : MonoBehaviour
 
 
         // Lompat hanya kalau menyentuh tanah
-        if (Input.GetButtonDown("Jump") && isGrounded || Input.GetButtonDown("Jump") && justJumped)
+        if ((Input.GetButtonDown("Jump") && isGrounded || Input.GetButtonDown("Jump") && justJumped) && Time.timeScale != 0)
         {
             
             if (isGrounded)
             {
                 justJumped = true;
                 doubleJumped = false;
+                jumpSound.Play();
                 rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
             }
             else if (justJumped == true && doubleJumped == false && canDoubleJump)
@@ -63,26 +67,27 @@ public class PlayerMovement : MonoBehaviour
                     Debug.Log("DoubleJumped");
                     justJumped = false;
                     doubleJumped = true;
+                    jumpSound.Play();
                     rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
                 }
             }
 
         }
 
-        if (Input.GetButtonDown("Dash"))
+        if (Input.GetButtonDown("Dash")  && Time.timeScale != 0)
         {
             Dash();
 
         }
 
 
-        if (Input.GetButtonDown("Reset"))
+        if (Input.GetButtonDown("Reset") )
         {
             rb.linearVelocity = Vector2.zero;
             transform.position = new Vector3(0f, 5f, 0f);
         }
 
-        if (Input.GetButtonDown("Flash"))
+        if (Input.GetButtonDown("Flash")  && Time.timeScale != 0)
         {
             flashHolding = true;
 
@@ -101,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
             FlashReleased(flashAmount);
         }
 
-        if (Input.GetButton("Run"))
+        if (Input.GetButton("Run")  && Time.timeScale != 0)
         {
             if (stamina > 0f)
             {
@@ -110,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
                 StaminaChange(-1f);
             }
         }
-        else if (Input.GetButton("Sprint"))
+        else if (Input.GetButton("Sprint")  && Time.timeScale != 0)
         {
             if (stamina >= 3f)
             {
@@ -126,19 +131,30 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+    public bool isWalking;
+    public Coroutine stepCor;
 
 
 
 
-
-
+public IEnumerator WalkSound()
+    {
+        walkSound.Play();
+        yield return new WaitUntil(() => isWalking == false);
+        walkSound.Stop();
+        stepCor = null;
+    }
 
 
     void FixedUpdate()
     {
-
         // Gerakan kiri-kanan
         float moveHorizontal = Input.GetAxis("Horizontal");
+        isWalking = moveHorizontal != 0f;
+        if(isWalking && stepCor == null)
+        {
+            stepCor = StartCoroutine(WalkSound());
+        }
         rb.linearVelocity = new Vector2(moveHorizontal * speed, rb.linearVelocity.y);
 
         //flip

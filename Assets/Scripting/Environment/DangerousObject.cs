@@ -19,11 +19,15 @@ public class DangerousObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (triggerArea.IsTouchingLayers(LayerMask.GetMask("Player")))
+
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
         {
             DealDamage();
         }
-
     }
 
     void DealDamage()
@@ -31,14 +35,15 @@ public class DangerousObject : MonoBehaviour
         if (objectType == ObjectType.Spike)
         {
             healthScript.HealthChange(-10f);
-            if (healthScript.health <= 0f)
-            {
-                healthScript.ToCheckpoint();
-            }
-            else
-            {
-                healthScript.ToSafe();
-            }
+            // if (healthScript.health <= 0f)
+            // {
+            StartCoroutine(healthScript.ToCheckpoint());
+            healthScript.iFrame = true;
+            // }
+            // else
+            // {
+            //     healthScript.ToSafe();
+            // }
         }
         else if (objectType == ObjectType.Stone)
         {

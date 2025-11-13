@@ -6,6 +6,7 @@ public class BouncyStuff : MonoBehaviour
 
     public Collider2D triggerArea;
     public float bouncePower;
+    public AudioSource bounceAudio;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -24,8 +25,9 @@ public class BouncyStuff : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>(); 
+            Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
             rb.AddForce(Vector2.up * bouncePower, ForceMode2D.Impulse);
+            bounceAudio.Play();
         }
     }
 }

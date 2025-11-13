@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class FallingThing : MonoBehaviour
@@ -9,6 +10,7 @@ public class FallingThing : MonoBehaviour
     public LayerMask pLayer;
     public Rigidbody2D rb;
     public PlayerHealth healthScript;
+    public AudioSource rockDestroy;
 
 
 
@@ -18,6 +20,8 @@ public class FallingThing : MonoBehaviour
         objectCollider = GetComponent<Collider2D>();
 
         triggerArea = GetComponentInChildren<BoxCollider2D>();
+        //find objeck with RockDestroy tag
+        rockDestroy = GameObject.FindWithTag("RockDestroy").GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         pLayer = LayerMask.GetMask("Player");
 
@@ -36,8 +40,14 @@ public class FallingThing : MonoBehaviour
         if (objectCollider.IsTouchingLayers(pLayer))
         {
             DamagePlayer();
-
         }
+    }
+
+    public  IEnumerator DestroyCountdown()
+    {
+        rockDestroy.Play();
+        yield return new WaitForSeconds(4f);
+        Destroy(gameObject);
     }
 
 
