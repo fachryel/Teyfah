@@ -3,6 +3,7 @@ using UnityEngine;
 public class Resource : MonoBehaviour
 {
     public float coin;
+    public AudioSource coinSound;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,5 +15,13 @@ public class Resource : MonoBehaviour
     void Update()
     {
 
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Coin")
+        {
+            coinSound.Play();
+        }
     }
 }

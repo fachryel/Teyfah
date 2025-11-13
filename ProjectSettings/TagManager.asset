@@ -7,6 +7,9 @@ TagManager:
   - Checkpoint
   - Destroyer
   - Solid
+  - Coin
+  - Explosound
+  - RockDestroy
   layers:
   - Default
   - TransparentFX

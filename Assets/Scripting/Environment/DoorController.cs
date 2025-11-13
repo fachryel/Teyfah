@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DoorController : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class DoorController : MonoBehaviour
     public bool isMoving;
     public bool isOpening;
     public bool isClosing;
+    public string sceneToLoad;
+    public int Stage;
+
+
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -62,7 +68,15 @@ public class DoorController : MonoBehaviour
                 StopCoroutine(OnOpen());
                 isOpening = false;
             }
-            yield return new WaitForSeconds(0.1f);
+
+            yield return new WaitForSeconds(0.3f);
+            //load next scene
+            if (sceneToLoad != null)
+            {
+                sceneToLoad = "Stage" + Stage;
+                SceneManager.LoadScene(sceneToLoad);
+            }
+
         }
 
     }

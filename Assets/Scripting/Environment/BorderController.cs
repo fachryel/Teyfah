@@ -25,14 +25,14 @@ public class BorderController : MonoBehaviour
             pRb.linearVelocity = Vector2.zero;
 
             healthScript.HealthChange(-15f);
-            if (healthScript.health <= 0f)
-            {
+            // if (healthScript.health <= 0f)
+            // {
                 healthScript.ToCheckpoint();
-            }
-            else
-            {
-                healthScript.ToSafe();
-            }
+            // }
+            // else
+            // {
+            //     healthScript.ToSafe();
+            // }
         }
 
     }

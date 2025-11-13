@@ -7,12 +7,12 @@ public class Explosive : MonoBehaviour
     public Transform blastPoint;
     public LayerMask ppLayer;
     public PlayerHealth healthScript;
-    public AudioSource audioSource;
-
+    public AudioSource Explosound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         healthScript = GameObject.FindWithTag("Player").GetComponent<PlayerHealth>();
+        Explosound = GameObject.FindWithTag("Explosound").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -27,6 +27,7 @@ public class Explosive : MonoBehaviour
         if (collision.gameObject.tag == "Solid" || collision.gameObject.tag == "Player")
         {
             CheckForPlayer();
+            Explosound.Play();
             Destroy(gameObject);
         }
     }
@@ -39,7 +40,6 @@ public class Explosive : MonoBehaviour
             healthScript.HealthChange(-10f);
         }
         //play sound
-        audioSource.Play();
 
     }
 

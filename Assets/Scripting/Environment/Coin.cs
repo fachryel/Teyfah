@@ -15,6 +15,7 @@ public class Coin : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            
             Destroy(gameObject);
             collision.GetComponent<Resource>().coin+=amount;
         }
