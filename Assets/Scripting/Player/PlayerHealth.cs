@@ -12,11 +12,14 @@ public class PlayerHealth : MonoBehaviour
     public BarController healthBar;
     public SpriteRenderer sprite;
     public Transform safeArea;
+    public DeathCounter counter;
+    public GameObject corpse;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        counter = GetComponent<DeathCounter>();
     }
 
     // Update is called once per frame
@@ -73,7 +76,9 @@ public class PlayerHealth : MonoBehaviour
     public IEnumerator Died()
     {
         yield return new WaitForSeconds(0.1f);
+        Instantiate(corpse, transform.position, Quaternion.identity);
         ToCheckpoint();
         health = maxHealth;
+        counter.deathCount += 1;
     }
 }
