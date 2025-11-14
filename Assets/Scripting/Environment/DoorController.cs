@@ -55,6 +55,7 @@ public class DoorController : MonoBehaviour
         }
     }
 
+   
 
     public GameObject player;
     public Vector3 vposition;
@@ -75,7 +76,8 @@ public class DoorController : MonoBehaviour
             //load next scene
             if (sceneToLoad != null)
             {
-                player.transform.position = vposition;  
+                player.transform.position = vposition;
+                player.GetComponent<PlayerHealth>().stage += 1;
                 sceneToLoad = "Stage" + Stage;
                 SceneManager.LoadScene(sceneToLoad);
             }
