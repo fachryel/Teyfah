@@ -27,6 +27,7 @@ public class DoorController : MonoBehaviour
         doorCollider = GetComponent<CapsuleCollider2D>();
         defPos = transform.position;
         tarPos = new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z);
+        player = GameObject.FindWithTag("Player"); 
     }
 
     // Update is called once per frame
@@ -55,7 +56,8 @@ public class DoorController : MonoBehaviour
     }
 
 
-
+    public GameObject player;
+    public Vector3 vposition;
     //lerp for the door open and close
     public IEnumerator OnOpen()
     {
@@ -73,6 +75,7 @@ public class DoorController : MonoBehaviour
             //load next scene
             if (sceneToLoad != null)
             {
+                player.transform.position = vposition;  
                 sceneToLoad = "Stage" + Stage;
                 SceneManager.LoadScene(sceneToLoad);
             }
