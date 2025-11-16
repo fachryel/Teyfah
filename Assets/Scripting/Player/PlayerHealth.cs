@@ -6,7 +6,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public float health = 100f;
     public int deathCount;
-    public int stage;
+    public int stage = 1;
     public float maxHealth = 100f;
     public bool iFrame;
     public Transform checkPoint;
@@ -108,15 +108,15 @@ public class PlayerHealth : MonoBehaviour
 
 
 
-    public void ToSafe()
-    {
-        if (isDead)
-        {
-            return;
-        }
-        rb.linearVelocity = Vector2.zero;
-        transform.position = safeArea.position;
-    }
+    // public void ToSafe()
+    // {
+    //     if (isDead)
+    //     {
+    //         return;
+    //     }
+    //     rb.linearVelocity = Vector2.zero;
+    //     transform.position = safeArea.position;
+    // }
     public IEnumerator ToCheckpoint()
     {
         yield return new WaitForSeconds(0.1f);
@@ -141,7 +141,7 @@ public class PlayerHealth : MonoBehaviour
 
         deathSound.Play();
 
-        Instantiate(corpse, transform.position, Quaternion.identity);
+        // Instantiate(corpse, transform.position, Quaternion.identity);
 
         yield return new WaitForSeconds(0.1f);
 

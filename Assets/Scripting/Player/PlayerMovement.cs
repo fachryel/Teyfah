@@ -137,7 +137,9 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-public IEnumerator WalkSound()
+
+
+    public IEnumerator WalkSound()
     {
         walkSound.Play();
         yield return new WaitUntil(() => isWalking == false);

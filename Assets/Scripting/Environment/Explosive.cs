@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Explosive : MonoBehaviour
@@ -28,8 +29,20 @@ public class Explosive : MonoBehaviour
         {
             CheckForPlayer();
             Explosound.Play();
+            StartCoroutine(SpawnSmoke());
             Destroy(gameObject);
         }
+    }
+
+    public GameObject smoke;
+
+    IEnumerator SpawnSmoke()
+    {
+
+        Instantiate(smoke, transform.position, Quaternion.identity);
+
+        yield return new WaitForSeconds(0.5f);
+        Destroy(smoke);
     }
 
     void CheckForPlayer()
@@ -43,7 +56,7 @@ public class Explosive : MonoBehaviour
 
     }
 
-       private void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(blastPoint.position, blastRadius);

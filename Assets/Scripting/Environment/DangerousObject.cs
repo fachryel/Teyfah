@@ -5,7 +5,7 @@ public class DangerousObject : MonoBehaviour
 
     public Collider2D triggerArea;
     public PlayerHealth healthScript;
-    public enum ObjectType { Spike, Lava, Fire, Acid, Stone };
+    public enum ObjectType { Spike, Lava, Fire, Acid, Stone, Creature };
     public ObjectType objectType;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -48,14 +48,18 @@ public class DangerousObject : MonoBehaviour
         else if (objectType == ObjectType.Stone)
         {
             healthScript.HealthChange(-5f);
-            if (healthScript.health <= 0f)
-            {
-                healthScript.ToCheckpoint();
-            }
-            else
-            {
-                healthScript.ToSafe();
-            }
+            // if (healthScript.health <= 0f)
+            // {
+            StartCoroutine(healthScript.ToCheckpoint());
+            // }
+            // else
+            // {
+            //     healthScript.ToSafe();
+            // }
+        } else if(objectType == ObjectType.Creature)
+        {
+            healthScript.HealthChange(-15f);
+            StartCoroutine(healthScript.ToCheckpoint());
         }
 
 
