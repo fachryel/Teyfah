@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 60
   m_Sprite: {fileID: 5697648865917855941, guid: 4e241ade5e21d2e4ead5bc59b125615c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -107,6 +107,9 @@ MonoBehaviour:
   delay: 3
   isGoing: 1
   spawnedObject: {fileID: 0}
+  triggerArea: {fileID: 0}
+  targetX: 0
+  spd: 0
 --- !u!95 &7971959780324538965
 Animator:
   serializedVersion: 7

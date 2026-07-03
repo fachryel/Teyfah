@@ -29,13 +29,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool flashHolding;
     [SerializeField] private float flashAmount;
     public AudioSource jumpSound;
+    public Animator anim;
     public AudioSource walkSound;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         plCollider = GetComponent<Collider2D>();
         healthScript = GetComponent<PlayerHealth>();
+        anim = GetComponent<Animator>();
 
+        
 
     }
 
@@ -74,37 +77,10 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (Input.GetButtonDown("Dash")  && Time.timeScale != 0)
-        {
-            Dash();
-
-        }
 
 
-        if (Input.GetButtonDown("Reset") )
-        {
-            rb.linearVelocity = Vector2.zero;
-            transform.position = new Vector3(0f, 5f, 0f);
-        }
 
-        if (Input.GetButtonDown("Flash")  && Time.timeScale != 0)
-        {
-            flashHolding = true;
 
-        }
-
-        if (Input.GetButton("Flash") && flashHolding)
-        {
-            StaminaChange(-1f);
-            flashAmount += 1f;
-        }
-
-        if (flashHolding && Input.GetButtonUp("Flash") || flashHolding && stamina <= 0)
-        {
-
-            flashHolding = false;
-            FlashReleased(flashAmount);
-        }
 
         if (Input.GetButton("Run")  && Time.timeScale != 0)
         {
@@ -153,6 +129,15 @@ public class PlayerMovement : MonoBehaviour
         // Gerakan kiri-kanan
         float moveHorizontal = Input.GetAxis("Horizontal");
         isWalking = moveHorizontal != 0f;
+        if (isWalking)
+        {
+            //
+            anim.SetBool("isWalking", true);
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
+        }
         if(isWalking && stepCor == null)
         {
             stepCor = StartCoroutine(WalkSound());

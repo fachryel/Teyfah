@@ -79,6 +79,11 @@ public class DoorController : MonoBehaviour
                 player.transform.position = vposition;
                 player.GetComponent<PlayerHealth>().stage += 1;
                 sceneToLoad = "Stage" + Stage;
+                player.GetComponent<PlayerMovement>().canDoubleJump = true;
+                    if( player.GetComponent<PlayerHealth>().stage == 3)
+                {
+                    sceneToLoad = "WinScene";
+                }
                 SceneManager.LoadScene(sceneToLoad);
             }
 

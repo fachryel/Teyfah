@@ -126,6 +126,7 @@ MonoBehaviour:
     m_Bits: 64
   healthScript: {fileID: 0}
   Explosound: {fileID: 0}
+  smoke: {fileID: 3574629659499222178, guid: 871751e7d99f9ca479e4778192cf4074, type: 3}
 --- !u!60 &706358034262222669
 PolygonCollider2D:
   m_ObjectHideFlags: 0
